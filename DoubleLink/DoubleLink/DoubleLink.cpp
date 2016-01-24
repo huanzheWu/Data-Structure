@@ -35,20 +35,6 @@ int main()
 		cout << ptr->_value<<endl;
 		ptr = ptr->next_ptr;
 	}
-	int i;
-	while (cin >> i)
-	{
-		dlink.del(i);
-		DoubleLink<int>::pointer ptr = dlink.getHead();
-		ptr = ptr->next_ptr;
-		while (ptr != dlink.getHead())
-		{
-			cout << ptr->_value << endl;
-			ptr = ptr->next_ptr;
-		}
-
-	}
-
 
 	getchar();
 	return 0;
