@@ -44,9 +44,14 @@ public:
 	T get(int index);
 	T get_head();
 	T get_last();
+
+	Node<T>* getHead();
+
 private :
 	int count;
 	Node<T> * phead;
+
+private :
 	Node<T> * getNode(int index);
 };
 
@@ -107,6 +112,13 @@ bool SingleLink<T>::isEmpty()
 	return count==0;
 };
 //在指定位置插入新节点
+
+template<typename T>
+Node<T>* SingleLink<T>::getHead()
+{
+	return phead->_next;
+}
+
 template <typename T>
 Node<T>* SingleLink<T>::insert(int index, T t)
 {

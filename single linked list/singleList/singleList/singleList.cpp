@@ -1,5 +1,7 @@
-// singleList.cpp : 定义控制台应用程序的入口点。
-//
+/*
+*
+*测试代码
+*/
 
 #include "stdafx.h"
 #include"singleList.h"
@@ -8,22 +10,22 @@ using namespace std;
 int main()
 {
 	SingleLink<int> link;
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		SingleLink<int>::pointer ptr =link.insert(i, i);
-		if (ptr!=nullptr)
-			cout << ptr->_value<<endl;
+		link.insert(i, i);
 	}
-	cout << endl;
-	link.insert_head(10010);
-	link.insert_last(2334);
+	cout << link.size() << endl;
 
-	while (!link.isEmpty())
+	link.insert_head(1111);
+	link.insert_last(2222);
+
+	SingleLink<int>::pointer ptr = link.getHead();
+	while (ptr != nullptr)
 	{
-		SingleLink<int>::pointer ptr  = link.delete_head();
-		if (ptr!=nullptr)
-			cout << ptr->_value << endl;
+		cout << ptr->_value << endl;
+		ptr = ptr->_next;
 	}
+
 	getchar();
 	return 0;
 }
