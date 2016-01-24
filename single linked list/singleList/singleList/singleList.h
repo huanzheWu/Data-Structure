@@ -6,7 +6,6 @@
 
 # ifndef SINGLE_LIST_HXX
 # define SINGLE_LIST_HXX
-#include<iostream>
 
 //节点结构
 template <typename T>
@@ -27,7 +26,6 @@ class SingleLink
 {
 public:
 	typedef Node<T>*  pointer;
-
 	SingleLink();
 	~SingleLink();
 	//获取长度
@@ -35,7 +33,7 @@ public:
 	//判空
 	bool isEmpty();
 	//插入操作
-	Node<T>* insert_after(int index, T t);
+	Node<T>* insert(int index, T t);
 	Node<T>* insert_head(T t);
 	Node<T>* insert_last(T t);
 	//删除操作
@@ -72,13 +70,13 @@ Node<T>* SingleLink<T>::getNode(int index)
 	if (index > count||index < 0 )
 		return nullptr;
 	int temp = 0;
-	Node<T>* ptr = phead;
+	Node<T>* preNode = phead;
 	while (temp < index)
 	{
 		temp++;
-		ptr = ptr->_next;
+		preNode = preNode->_next;
 	}
-	return ptr;
+	return preNode;
 }
 /*
 析构函数
@@ -86,9 +84,12 @@ Node<T>* SingleLink<T>::getNode(int index)
 template <typename T>
 SingleLink<T>::~SingleLink()
 {
-	while (!isEmpty())
+	Node<T>* pNode = phead->_next;
+	while (nullptr != pNode)
 	{
-		del(0);
+		Node<T>* temp = pNode;
+		pNode = pNode->_next;
+		delete temp;
 	}
 	//进行销毁
 };
@@ -107,13 +108,13 @@ bool SingleLink<T>::isEmpty()
 };
 //在指定位置插入新节点
 template <typename T>
-Node<T>* SingleLink<T>::insert_after(int index, T t)
+Node<T>* SingleLink<T>::insert(int index, T t)
 {
-	Node<T> * ptrNode = getNode(index);
-	if (ptrNode)
+	Node<T> * preNode = getNode(index);
+	if (preNode)
 	{
-		Node<T> *newNode = new Node<T>(t,ptrNode->_next);
-		ptrNode->_next = newNode;
+		Node<T> *newNode = new Node<T>(t,preNode->_next);
+		preNode->_next = newNode;
 		count++;
 		return newNode;
 	}
@@ -125,7 +126,7 @@ Node<T>* SingleLink<T>::insert_after(int index, T t)
 template <typename T>
 Node<T>* SingleLink<T>::insert_head(T t)
 {
-	return insert_after(0, t);
+	return insert(0, t);
 };
 /*
 从尾部进行插入
@@ -133,7 +134,7 @@ Node<T>* SingleLink<T>::insert_head(T t)
 template <typename T>
 Node<T>* SingleLink<T>::insert_last(T t)
 {
-	return insert_after(count, t);
+	return insert(count, t);
 };
 /*
 删除链表指定位置元素
@@ -166,7 +167,4 @@ Node<T>*SingleLink<T>::delete_last()
 {
 	return del(count);
 };
-
-
-
 # endif

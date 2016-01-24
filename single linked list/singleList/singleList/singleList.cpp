@@ -10,7 +10,7 @@ int main()
 	SingleLink<int> link;
 	for (int i = 0; i < 3; i++)
 	{
-		SingleLink<int>::pointer ptr =link.insert_after(i, i);
+		SingleLink<int>::pointer ptr =link.insert(i, i);
 		if (ptr!=nullptr)
 			cout << ptr->_value<<endl;
 	}
