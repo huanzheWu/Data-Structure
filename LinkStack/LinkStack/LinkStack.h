@@ -1,3 +1,8 @@
+/*
+*Author:huanzheWu
+*date:2016/1/25
+*基于链表的栈实现
+*/
 # ifndef LINK_STACK_HPP
 # define LINK_STACK_HPP
 template <typename T>
