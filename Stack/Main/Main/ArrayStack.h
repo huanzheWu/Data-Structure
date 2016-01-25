@@ -1,3 +1,8 @@
+/*
+*Author :huanzheWu
+*date：2016/1/25
+*基于数组的栈实现
+*/
 # ifndef ARRAY_STACK_HPP
 # define ARRAY_STACK_HPP
 
