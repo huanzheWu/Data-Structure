@@ -22,7 +22,7 @@ class BSTree
 {
 public:
 	BSTree();
-	~BSTree(){};
+	~BSTree();
 
 	void preOrder();	//前序遍历二叉树
 	void inOrder();		//中序遍历二叉树
@@ -47,8 +47,14 @@ public:
 private:
 	BSNode<T>* root; //根节点
 private:
-	BSNode<T>* search(BSNode<T>* & p, T key); //查找函数，供递归调用
-	void remove(BSNode<T>*  p, T key);		  //删除节点
+	BSNode<T>* search(BSNode<T>* & p, T key); 
+	void remove(BSNode<T>*  p, T key);		  
+	void preOrder(BSNode<T>* p);
+	void inOrder(BSNode<T>* p);
+	void postOrder(BSNode<T>* p);
+	T search_minimun(BSNode<T>* p); 
+	T search_maximum(BSNode<T>* p); 
+	void destory(BSNode<T>* &p);		
 	
 };
 
@@ -56,6 +62,12 @@ private:
 template <typename T>
 BSTree<T>::BSTree() :root(nullptr){};
 
+/*析构函数*/
+template <typename T>
+BSTree<T>::~BSTree()
+{
+	destory(root);
+};
 /*插入函数*/
 template <typename T>
 void BSTree<T>::insert(T key)
@@ -249,4 +261,101 @@ BSNode<T>* BSTree<T>::successor(BSNode<T>* pnode)
 	return pparent;
 };
 
+
+/*前序遍历算法*/
+template <typename T>
+void BSTree<T>::preOrder()
+{
+	preOrder(root);
+};
+template <typename T>
+void BSTree<T>::preOrder(BSNode<T> *p)
+{
+	if (p != nullptr)
+	{
+		cout << p->value << endl;
+		preOrder(p->lchild);
+		preOrder(p->rchild);
+	}
+};
+/*中序遍历算法*/
+template <typename T>
+void BSTree<T>::inOrder()
+{
+	inOrder(root);
+};
+template<typename T>
+void BSTree<T>::inOrder(BSNode<T>* p)
+{
+	if (p != nullptr)
+	{
+		inOrder(p->lchild);
+		cout << p->value << endl;
+		inOrder(p->rchild);
+	}
+};
+/*后序遍历算法*/
+template <typename T>
+void BSTree<T>::postOrder()
+{
+	postOrder(root);
+};
+template <typename T>
+void BSTree<T>::postOrder(BSNode<T>* p)
+{
+	if (p != nullptr)
+	{
+		postOrder(p->lchild);
+		postOrder(p->rchild);
+		cout << p->value<<endl;
+	}
+};
+/*寻找最小元素*/
+template <typename T>
+T BSTree<T>::search_minimun()
+{
+	return search_minimun(root);
+};
+template <typename T>
+T BSTree<T>::search_minimun(BSNode<T>* p)
+{
+	if (p->lchild != nullptr)
+		return search_minimun(p->lchild);
+	return p->value;
+};
+
+/*寻找最大元素*/
+template <typename T>
+T BSTree<T>::search_maximum()
+{
+	return search_maximum(root);
+};
+template <typename T>
+T BSTree<T>::search_maximum(BSNode<T>*p)
+{
+	if (p->rchild != nullptr)
+		return search_maximum(p->rchild);
+	return p->value;
+};
+
+/*销毁二叉树*/
+template<typename T>
+void BSTree<T>::destory()
+{
+	destory(root);
+};
+template <typename T>
+void BSTree<T>::destory(BSNode<T>* &p)
+{
+	if (p != nullptr)
+	{
+		if (p->lchild != nullptr)
+			destory(p->lchild);
+		if (p->rchild != nullptr)
+			destory(p->rchild);
+		delete p;
+		p = nullptr;
+	}
+
+};
 #endif 

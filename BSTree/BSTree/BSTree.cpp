@@ -19,7 +19,17 @@ int main()
 	t.insert(99);
 	t.insert(93);
 	t.insert(95);
-	int i;
+	cout << "前序遍历:" << endl;
+	t.preOrder() ;
+	cout << endl << "中序遍历：" << endl;
+	t.inOrder();
+	cout << endl << "后续遍历:" << endl;
+	t.postOrder();
+
+	cout << "最大数:" << t.search_maximum() << endl;
+	cout << "最小数:" << t.search_minimun() << endl;
+
+/*	int i;
 
 	t.remove(62);	
 	while (cin >> i)
@@ -29,7 +39,11 @@ int main()
 			cout << "find" << pnode->value << endl;
 		else
 			cout << "not find" << endl;
-	}
+	}*/
+
+	t.destory();
+	cout << endl << "中序遍历：" << endl;
+	t.inOrder();
 	getchar();
 	return 0;
 }
