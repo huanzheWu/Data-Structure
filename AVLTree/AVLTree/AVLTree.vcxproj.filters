@@ -24,7 +24,7 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Huffman.h">
+    <ClInclude Include="AVLTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Huffman.cpp">
+    <ClCompile Include="AVLTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
