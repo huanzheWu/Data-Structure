@@ -26,11 +26,11 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	a.insert(11);
 	a.InOrder();
-	a.destory();
+	//a.destory();
 	a.InOrder();
 
 
-	AVLTreeNode<int>* b = a.search_recurse(11);
+	AVLTreeNode<int>* b = a.search_iterator(11);
 	if (b != nullptr)
 		cout << b->key;
 	getchar();

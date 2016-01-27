@@ -252,12 +252,35 @@ AVLTreeNode<T>* AVLTree<T>::search_recurse(AVLTreeNode<T>* pnode, T key) const
 		if (key == pnode->key)
 			return pnode;
 		if (key > pnode->key)
-			return search_recurse(pnode->rchild);
+			return search_recurse(pnode->rchild,key);
 		else
-			return search_recurse(pnode->lchild);
+			return search_recurse(pnode->lchild,key);
 	}
 	return nullptr;
 };
+
+/*非递归查找指定元素*/
+template <typename T>
+AVLTreeNode<T>* AVLTree<T>::search_iterator(T key)
+{
+	return search_iterator(root, key);
+};
+template <typename T>
+AVLTreeNode<T>* AVLTree<T>::search_iterator(AVLTreeNode<T>* pnode, T key) const
+{
+	while (pnode != nullptr)
+	{
+		if (pnode->key == key)
+			return pnode;
+		else if (key > pnode->key)
+			pnode = pnode->rchild;
+		else
+			pnode = pnode->lchild;
+	}
+	return nullptr;
+};
+
+
 /*删除指定元素*/
 template<typename T>
 AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
