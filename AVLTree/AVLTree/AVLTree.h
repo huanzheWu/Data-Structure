@@ -144,6 +144,12 @@ int AVLTree<T>::height(AVLTreeNode<T>* pnode)
 	return 0;																//如果是空树，高度为0
 };
 
+template <typename T>
+int AVLTree<T>::height()
+{
+	return height(root);
+};
+
 /*左旋转操作*/
 /*pnode为最小失衡子树的根节点*/
 /*返回旋转后的根节点*/
@@ -296,14 +302,14 @@ AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
 				{
 					//使用左子树最大节点来代替被删节点，而删除该最大节点
 					AVLTreeNode<T>* ppre = maximum(pnode->lchild);		//左子树最大节点
-					pnode->key = ppre->key;								//将前驱的值覆盖在当前结点
+					pnode->key = ppre->key;								//将最大节点的值覆盖当前结点
 					pnode->lchild = remove(pnode->lchild, ppre->key);	//递归地删除最大节点
 				}
 				else
 				{
 					//使用最小节点来代替被删节点，而删除该最小节点
 					AVLTreeNode<T>* psuc = minimum(pnode->rchild);		//右子树的最小节点
-					pnode->key = psuc->key;								//将后继节点值覆盖当前结点
+					pnode->key = psuc->key;								//将最小节点值覆盖当前结点
 					pnode->rchild = remove(pnode->rchild, psuc->key);	//递归地删除最小节点
 				}
 
@@ -323,21 +329,21 @@ AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
 		else if (key > pnode->key)		//要删除的节点比当前节点大，则在右子树进行删除
 		{
 			pnode->rchild =  remove(pnode->rchild, key);
-			if (height(pnode->lchild) - height(pnode->rchild) == 2) //删除右子树节点导致不平衡
+			if (height(pnode->lchild) - height(pnode->rchild) == 2) //删除右子树节点导致不平衡:相当于情况二或情况四
 			{
 				if (height(pnode->lchild->rchild)>height(pnode->lchild->lchild))
-					pnode = leftRightRotation(pnode);
+					pnode = leftRightRotation(pnode);				//相当于情况四
 				else
-					pnode = rightRotation(pnode);
+					pnode = rightRotation(pnode);					//相当于情况二
 			}
 		}
 		else if (key < pnode->key)		//要删除的节点比当前节点小，则在左子树进行删除
 		{
 			pnode->lchild= remove(pnode->lchild, key);
-			if (height(pnode->rchild) - height(pnode->lchild) == 2)  //删除左子树节点导致不平衡
+			if (height(pnode->rchild) - height(pnode->lchild) == 2)  //删除左子树节点导致不平衡：相当于情况三或情况一
 			{
 				if (height(pnode->rchild->lchild)>height(pnode->rchild->rchild))
-					pnode = rightLeftRotation(pnode);
+					pnode = rightLeftRotation(pnode);				
 				else
 					pnode = leftRotation(pnode);
 			}

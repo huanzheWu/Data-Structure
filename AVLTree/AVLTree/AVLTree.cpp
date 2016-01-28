@@ -9,31 +9,30 @@ using namespace std;
 int _tmain(int argc, _TCHAR* argv[])
 {
 	AVLTree<int> a;
-	a.insert(1);
-	a.insert(2);
-	a.insert(8);
-	a.insert(9);
-	a.insert(10);
-	a.insert(3);
-	a.insert(4);
-	a.insert(5);
-	a.insert(6);
-	a.insert(7);
-	
+	for (int i = 0; i < 10; i++)
+		a.insert(i);
+	cout << "树高：" << a.height() << endl;
+	cout << "前序遍历:"  << endl;
+	a.preOrder();
+
+	cout << "中序遍历:" << endl;
 	a.InOrder();
-	cout << endl;
+
+	cout << "后序遍历:" << endl;
+	a.postOrder();
+	
+	cout << "删除元素10"<<endl;
 	a.remove(10);
 
-	a.insert(11);
-	a.InOrder();
-	//a.destory();
-	a.InOrder();
+	AVLTreeNode<int>* b = a.search_iterator(10);
 
-
-	AVLTreeNode<int>* b = a.search_iterator(11);
 	if (b != nullptr)
 		cout << b->key;
+	else
+		cout << "无此元素" << endl;
+
 	getchar();
+
 	return 0;
 }
 
