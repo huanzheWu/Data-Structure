@@ -164,9 +164,9 @@ Node<T>* DoubleLink<T>::insert(int index, T value)
 template<typename T>
 Node<T>* DoubleLink<T>::delete_front()
 {
-	if (count == 0)
+	if (count == 0)		//¿ÕÊ÷£¬·µ»Ønullptr
 	{
-		return nullptr;
+		return nullptr; 
 	}
 	Node<T>* pnode = phead->next_ptr;
 	phead->next_ptr = pnode->next_ptr;

@@ -27,7 +27,7 @@ public:
 	void preOrder();	//前序遍历二叉树
 	void inOrder();		//中序遍历二叉树
 	void postOrder();	//后序遍历二叉树
-	void layerOrder();	//层次遍历二叉树
+	//void layerOrder();	//层次遍历二叉树
 
 	BSNode<T>* search_recursion(T key);		//递归地进行查找
 	BSNode<T>* search_Iterator(T key);		//迭代地进行查找
@@ -130,7 +130,6 @@ BSNode<T>* BSTree<T>::search_recursion(T key)
 
 /*private:search()*/
 /*递归查找的类内部实现*/
-
 template <typename T>
 BSNode<T>* BSTree<T>::search(BSNode<T>* & pnode, T key)
 {
@@ -138,7 +137,7 @@ BSNode<T>* BSTree<T>::search(BSNode<T>* & pnode, T key)
 		return nullptr;
 	if (pnode->value == key)
 		return pnode;
-	cout << "-->" << pnode->value << endl; //可以输出查找路径
+	//cout << "-->" << pnode->value << endl; //可以输出查找路径
 	if (key > pnode->value)
 		return search(pnode->rchild, key);
 	return search(pnode->lchild, key);
@@ -160,27 +159,28 @@ void BSTree<T>::remove(BSNode<T>* pnode, T key)
 		if (pnode->value == key)
 		{
 			BSNode<T>* pdel=nullptr;
-			//确定要删除的是哪个节点
+		
 			if (pnode->lchild == nullptr || pnode->rchild == nullptr)
-				pdel = pnode;	
-			else
-				pdel = predecessor(pnode);
+				pdel = pnode;					//情况二、三：被删节点只有左子树或右子树，或没有孩子
+			else 
+				pdel = predecessor(pnode);      //情况一：被删节点同时有左右子树，则删除该节点的前驱
 
-			//要删除的节点只有一个孩子，或是没有孩子，我们找出其孩子的指针
+			//此时，被删节点只有一个孩子（或没有孩子）.保存该孩子指针
 			BSNode<T>* pchild=nullptr;
 			if (pdel->lchild != nullptr)
 				pchild = pdel->lchild;
 			else
 				pchild = pdel->rchild;
 
-			//让其孩子指向被删除节点的父节点
+			//让孩子指向被删除节点的父节点
 			if (pchild != nullptr)
 				pchild->parent = pdel->parent;
 
+			//如果要删除的节点是头节点，注意更改root的值
+			if (pdel->parent == nullptr) 
+				root = pchild;			
 
-			if (pdel->parent == nullptr) //如果要删除的节点是头节点
-				root = pchild;			 //则根节点 要改变
-
+			//如果要删除的节点不是头节点，要注意更改它的双亲节点指向新的孩子节点
 			else if (pdel->parent->lchild==pdel)
 			{
 				pdel->parent->lchild = pchild;
@@ -189,8 +189,7 @@ void BSTree<T>::remove(BSNode<T>* pnode, T key)
 			{
 				pdel->parent->rchild = pchild;
 			}
-
-
+			
 			if (pnode->value != pdel->value)
 				pnode->value = pdel->value;
 			delete pdel;

@@ -19,31 +19,20 @@ int main()
 	t.insert(99);
 	t.insert(93);
 	t.insert(95);
-	cout << "前序遍历:" << endl;
-	t.preOrder() ;
+
 	cout << endl << "中序遍历：" << endl;
 	t.inOrder();
-	cout << endl << "后续遍历:" << endl;
-	t.postOrder();
 
-	cout << "最大数:" << t.search_maximum() << endl;
-	cout << "最小数:" << t.search_minimun() << endl;
+	cout << "最大元素:" << t.search_maximum() << endl;
+	cout << "最小元素:" << t.search_minimun() << endl;
 
-/*	int i;
+	cout << "删除元素99" << endl;
+	t.remove(99);
 
-	t.remove(62);	
-	while (cin >> i)
-	{
-		BSNode<int> * pnode = t.search_recursion(i);
-		if (pnode)
-			cout << "find" << pnode->value << endl;
-		else
-			cout << "not find" << endl;
-	}*/
+	cout << "最大元素:" << t.search_maximum() << endl;
 
 	t.destory();
-	cout << endl << "中序遍历：" << endl;
-	t.inOrder();
+
 	getchar();
 	return 0;
 }

@@ -28,31 +28,30 @@ public:
 	typedef Node<T>*  pointer;
 	SingleLink();
 	~SingleLink();
-	//获取长度
-	int size();
-	//判空
-	bool isEmpty();
-	//插入操作
-	Node<T>* insert(int index, T t);
-	Node<T>* insert_head(T t);
-	Node<T>* insert_last(T t);
-	//删除操作
-	Node<T>*  del(int index);
-	Node<T>*  delete_head();
-	Node<T>*  delete_last();
-	//获取元素
-	T get(int index);
-	T get_head();
-	T get_last();
 
-	Node<T>* getHead();
+	int size();						 //获取长度
+	bool isEmpty();					 //判空
+
+	Node<T>* insert(int index, T t); //在指定位置进行插入
+	Node<T>* insert_head(T t);		 //在链表头进行插入
+	Node<T>* insert_last(T t);		 //在链表尾进行插入
+
+	Node<T>*  del(int index);		 //在指定位置进行删除
+	Node<T>*  delete_head();		 //删除链表头
+	Node<T>*  delete_last();		 //删除链表尾
+
+	T get(int index);			     //获取指定位置的元素
+	T get_head();					 //获取链表头元素
+	T get_last();					 //获取链表尾元素
+
+	Node<T>* getHead();				 //获取链表头节点
 
 private :
 	int count;
-	Node<T> * phead;
+	Node<T> * phead;				 
 
 private :
-	Node<T> * getNode(int index);
+	Node<T> * getNode(int index);	  //获取指定位置的节点
 };
 
 //默认构造函数
@@ -111,7 +110,7 @@ bool SingleLink<T>::isEmpty()
 {
 	return count==0;
 };
-//在指定位置插入新节点
+
 
 template<typename T>
 Node<T>* SingleLink<T>::getHead()
@@ -119,13 +118,16 @@ Node<T>* SingleLink<T>::getHead()
 	return phead->_next;
 }
 
+/*
+在指定位置插入新节点
+*/
 template <typename T>
 Node<T>* SingleLink<T>::insert(int index, T t)
 {
 	Node<T> * preNode = getNode(index);
 	if (preNode)
 	{
-		Node<T> *newNode = new Node<T>(t,preNode->_next);
+		Node<T> *newNode = new Node<T>(t,preNode->_next); //构建新节点，构建时指明节点的next节点
 		preNode->_next = newNode;
 		count++;
 		return newNode;
