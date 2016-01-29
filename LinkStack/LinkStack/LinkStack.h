@@ -5,6 +5,8 @@
 */
 # ifndef LINK_STACK_HPP
 # define LINK_STACK_HPP
+
+/*链表节点结构*/
 template <typename T>
 struct Node
 {
@@ -15,6 +17,8 @@ public:
 	T value;
 	Node<T>* next;
 };
+
+/*栈的抽象数据结构*/
  template <typename T>
  class LinkStack
  {
@@ -31,89 +35,70 @@ public:
 
  private:
 	 
-	 Node<T>* pbase;
-	 Node<T>* ptop;
+	 Node<T>* phead;
 	 int count;
-
- private:
-	 Node<T>* getPreTop();
-
  };
-
+ /*构造函数*/
  template <typename T>
  LinkStack<T>::LinkStack()
  {
-	 pbase = new Node<T>();
-	 ptop = pbase;
+	 phead = new Node<T>();
 	 count = 0;
  };
-
+ /*析构函数*/
  template <typename T>
  LinkStack<T>::~LinkStack()
  {
-	 while (pbase != ptop)
+	 while (phead->next != nullptr)
 	 {
-		 Node<T>* pnode = pbase->next;
-		 delete pbase;
-		 pbase = pnode;
+		 Node<T>*pnode = phead->next;
+		 phead->next = phead->next;
+		 delete pnode;
 	 }
-	 delete ptop;
-	 pbase = nullptr;
-	 ptop = nullptr;
+	 phead = nullptr;
  };
 
+ /*返回栈的大小*/
  template <typename T>
  int LinkStack<T>::size()
  {
 	 return count;
  };
-
+ /*栈的判空操作*/
  template <typename T>
  bool LinkStack<T>::isEmpty()
  {
 	 return count == 0;
  };
-
+ /*插入元素*/
  template<typename T>
  void LinkStack<T>::push(T t)
  {
 	 Node <T> *pnode = new  Node<T>(t);
-	 ptop->next = pnode;
-	 ptop = pnode;
+	 pnode->next = phead->next;
+	 phead->next = pnode;
 	 count++;
  };
-
+ /*弹栈*/
+ template <typename T>
+ T LinkStack<T>::pop()
+ {
+	 if (phead->next != nullptr) //栈空判断
+	 {
+		 Node<T>* pdel = phead->next;
+		 phead->next = phead->next->next;
+		 T value = pdel->value;
+		 delete pdel;
+		 count--;
+		 return value;
+	 }
+ };
+ /*获取栈顶元素*/
 template <typename T>
 T LinkStack<T>::top()
 {
-	return ptop->value;
+	if (phead->next!=nullptr)
+		return phead->next->value;
 };
-
-template<typename T>
-Node<T>*  LinkStack<T>::getPreTop()
-{
-	Node<T>* ptemp = pbase;
-	while (ptemp->next != ptop)
-	{
-		ptemp = ptemp->next;
-	}
-	return ptemp;
-};
-
-
-
-template <typename T>
-T LinkStack<T>::pop()
-{
-	if (ptop != pbase) //判空
-	{
-		Node<T>*ptemp = ptop;
-		ptop = getPreTop();
-		delete ptemp;
-		count--;
-		return ptop->value;
-	}
-};
-
 
 # endif
