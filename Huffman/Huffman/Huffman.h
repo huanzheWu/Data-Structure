@@ -1,5 +1,6 @@
 #ifndef _HUFFMAN_TREE_HPP_
 #define _HUFFMAN_TREE_HPP_
+/*哈夫曼树的节点定义*/
 template <typename T>
 struct HuffmanNode
 {
@@ -8,7 +9,7 @@ struct HuffmanNode
 		:lchild(nullptr), rchild(nullptr), parent(nullptr){}
 	~HuffmanNode();
 
-	T key;
+	T key;						//节点的值 
 	HuffmanNode<T>* lchild;
 	HuffmanNode<T>* rchild;
 	HuffmanNode<T>* parent;
@@ -50,6 +51,7 @@ Huffman<T>::Huffman()
 template<typename T>
 void Huffman<T>::creat(T a[], int size)
 {
+
 	//我们每次都要从剩下的节点里挑选两个最小的，适合用小顶堆
 };
 

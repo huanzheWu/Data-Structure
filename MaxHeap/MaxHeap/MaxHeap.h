@@ -18,6 +18,7 @@ public:
 	bool remove(T data);	//移除元素
 	void print();			//打印堆
 	T getTop();				//获取堆顶元素
+	bool createMapHeap(T a[], int size);//根据指定的数组来创建一个最大堆
 
 private:
 	int capacity;	//容量，也即是数组的大小
@@ -82,6 +83,19 @@ void MaxHeap<T>::filterUp(int index)
 		index = indexParent;
 	}
 	heap[index] = value;	//12插入最后的位置
+};
+
+/*根据指定的数组来创建一个最大堆*/
+template<typename T>
+bool MaxHeap<T>::createMapHeap(T a[], int size)
+{
+	if (size > capacity)	//	堆的容量不足以创建
+		return false;
+	for (int i = 0; i < size; i++)
+	{
+		insert(a[i]);
+	}
+	return true;
 };
 
 /*删除元素*/
