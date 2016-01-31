@@ -26,6 +26,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	heap2.createMinHeap(b, 9);
 	heap2.print();
 	getchar();
+
 	return 0;
 }
 
