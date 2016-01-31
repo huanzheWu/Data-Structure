@@ -13,7 +13,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		heap.insert(i);
 	}
-	getchar();
+	heap.print();
+	cout << endl;
+	heap.remove(8);
+	heap.print();
+ 	getchar();
 	return 0;
 }
 

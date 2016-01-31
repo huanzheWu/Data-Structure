@@ -12,10 +12,13 @@ class MaxHeap
 {
 public:
 	MaxHeap(int cap = 10);
-	~MaxHeap(){};
+	~MaxHeap();
 public:
-	bool insert(T val);	//往二叉堆中插入元素
+	bool insert(T val);		//往二叉堆中插入元素
 	bool remove(T data);	//移除元素
+	void print();			//打印堆
+	T getTop();				//获取堆顶元素
+
 private:
 	int capacity;	//容量，也即是数组的大小
 	int size;		//堆大小，也即是数组中有效元素的个数
@@ -31,7 +34,26 @@ MaxHeap<T>::MaxHeap(int cap = 10) //默认的数组大小为10
 {
 	heap = new T[capacity];
 };
-
+/*析构函数*/
+template<typename T>
+MaxHeap<T>::~MaxHeap()
+{
+	delete[]heap;
+};
+/*打印大顶堆*/
+template <typename T>
+void MaxHeap<T>::print()
+{
+	for (int i = 0; i < size; i++)
+		cout << heap[i] << " ";
+};
+/*获取堆顶元素*/
+template <typename T>
+T MaxHeap<T>::getTop()
+{
+	if (size != 0)
+		return heap[0];
+};
 /*插入元素*/
 template <typename T>
 bool MaxHeap<T>::insert(T val)
@@ -48,17 +70,18 @@ bool MaxHeap<T>::insert(T val)
 template <typename T>
 void MaxHeap<T>::filterUp(int index)
 {
+	T value = heap[index];	//插入节点的值，图中的12
+
 	while (index > 0) //如果还未到达根节点，继续调整
 	{
 		int indexParent = index / 2;  //求其双亲节点
-		if (heap[index] > heap[indexParent])
+		if (value> heap[indexParent])
 		{
-			T temp = heap[index];
 			heap[index] = heap[indexParent];
-			heap[indexParent] = temp;
 		}
 		index = indexParent;
 	}
+	heap[index] = value;	//12插入最后的位置
 };
 
 /*删除元素*/
@@ -70,30 +93,31 @@ bool MaxHeap<T>::remove(T data)
 	int index;
 	for (index = 0; index < size; index++)  //获取值在数组中的索引
 	{
-		if (phead[index] == date)
+		if (heap[index] == data)
 			break;
 	}
 	if (index == size)			//数组中没有该值
 		return false;  
 	
-	heap[index] = heap[size - 1];
+	heap[index] = heap[size - 1]; //使用最后一个节点来代替当前结点，然后再向下调整当前结点。
+
 	filterDown(index,size--);   
+
 	return true;
 };
 /*从上到下调整堆*/
 /*删除元素时候使用*/
 template<typename T>
-void MaxHeap<T>::filterDown(int begin,int end)
+void MaxHeap<T>::filterDown(int current,int end)
 {
-	int current = begin;	//当前结点
 
-	int child = begin * 2 + 1; //当前结点的左孩子
+	int child = current * 2 + 1; //当前结点的左孩子
 
 	T value = heap[current];	//保存当前结点的值
 
 	while (child <= end)
 	{
-		if (child < end&&heap[child] < heap[child+1])//选出两个孩子中较大的孩子
+		if (child < end && heap[child] < heap[child+1])//选出两个孩子中较大的孩子
 			child++;
 		if (value>heap[child])	//无须调整；调整结束
 			break;
@@ -104,7 +128,7 @@ void MaxHeap<T>::filterDown(int begin,int end)
 			child = child * 2 + 1;			
 		}
 	}
-	heap[curren] = value;
+	heap[current] = value;
 };
 
 # endif 
