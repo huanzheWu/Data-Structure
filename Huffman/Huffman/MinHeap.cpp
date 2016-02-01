@@ -19,6 +19,7 @@ public:
 	T getTop();				//获取堆顶元素
 	bool createMinHeap(T a[], int length);//根据指定的数组来创建一个最小堆
 
+
 private:
 	int capacity;	//容量，也即是数组的大小
 	int size;		//堆小小，也即是数组中有效元素的个数
@@ -74,10 +75,10 @@ void MinHeap<T>::filterUp(int index)
 
 	while (index > 0) //如果还未到达根节点，继续调整
 	{
-		int indexParent = (index-1) / 2;  //求其双亲节点
+		int indexParent = (index - 1) / 2;  //求其双亲节点
 		if (value >= heap[indexParent])
 			break;
-		else 
+		else
 		{
 			heap[index] = heap[indexParent];
 			index = indexParent;

@@ -5,6 +5,7 @@ date:2016/1/30
 */
 # ifndef _Min_HEAP_HCC_
 # define _Min_HEAP_HCC_
+
 /*小顶堆类定义*/
 template <typename T>
 class MinHeap
@@ -17,7 +18,9 @@ public:
 	bool remove(T data);	//移除元素
 	void print();			//打印堆
 	T getTop();				//获取堆顶元素
+	T get_dumpTop();		//获取并删除堆顶元素
 	bool createMinHeap(T a[], int length);//根据指定的数组来创建一个最小堆
+
 
 private:
 	int capacity;	//容量，也即是数组的大小
@@ -54,6 +57,14 @@ T MinHeap<T>::getTop()
 	if (size != 0)
 		return heap[0];
 };
+/*获取并删除堆顶元素*/
+template<typename T>
+T MinHeap<T>::get_dumpTop()
+{
+	T temp = heap[0];
+	remove(heap[0]);
+	return temp;
+};
 /*插入元素*/
 template <typename T>
 bool MinHeap<T>::insert(T val)
@@ -74,10 +85,10 @@ void MinHeap<T>::filterUp(int index)
 
 	while (index > 0) //如果还未到达根节点，继续调整
 	{
-		int indexParent = (index-1) / 2;  //求其双亲节点
+		int indexParent = (index - 1) / 2;  //求其双亲节点
 		if (value >= heap[indexParent])
 			break;
-		else 
+		else
 		{
 			heap[index] = heap[indexParent];
 			index = indexParent;
