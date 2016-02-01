@@ -1,7 +1,7 @@
 # Data-Structure
 ## 基于C++模板实现的数据结构源代码。内容包括:
 
-1.单向链表(SingleLink)
+1. 单向链表(SingleLink)
 
 2. 双向循环链表(DoubleLink)
 
