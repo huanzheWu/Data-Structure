@@ -49,6 +49,12 @@ private:
 template<typename T>
 Huffman<T>::Huffman():root(nullptr){};
 
+/*Îö¹¹º¯Êı*/
+template<typename T>
+Huffman<T>::~Huffman() 
+{
+	destroy(root);
+};
 
 /*´´½¨¹ş·òÂüÊ÷*/
 template<typename T>
@@ -68,6 +74,7 @@ void Huffman<T>::creat(T a[],int size)
 		forest.pop_front();
 	}
 	root = forest.front();
+	forest.clear();
 };
 
 /*Ç°Ğò±éÀú¹ş·òÂüÊ÷*/
@@ -140,6 +147,23 @@ template <typename T>
 void Huffman<T>::print()
 {
 	print(root);
+};
+/*Ïú»Ù¹ş·òÂüÊ÷*/
+template <typename T>
+void Huffman<T>::destory()
+{
+	destroy(root);
+};
+template<typename T>
+void Huffman<T>::destroy(HuffmanNode<T>* pnode)
+{
+	if (pnode != nullptr)
+	{
+		destroy(pnode->lchild);
+		destroy(pnode->rchild);
+		delete pnode;
+		pnode = nullptr;
+	}
 };
 
 #endif
