@@ -1,12 +1,12 @@
 /*
 *Author:huanzheWu
 *date:2016/1/25
-*»ùÓÚÁ´±íµÄÕ»ÊµÏÖ
+*åŸºäºé“¾è¡¨çš„æ ˆå®ç°
 */
 # ifndef LINK_STACK_HPP
 # define LINK_STACK_HPP
 
-/*Á´±í½Úµã½á¹¹*/
+/*é“¾è¡¨èŠ‚ç‚¹ç»“æ„*/
 template <typename T>
 struct Node
 {
@@ -18,7 +18,7 @@ public:
 	Node<T>* next;
 };
 
-/*Õ»µÄ³éÏóÊı¾İ½á¹¹*/
+/*æ ˆçš„æŠ½è±¡æ•°æ®ç»“æ„*/
  template <typename T>
  class LinkStack
  {
@@ -38,39 +38,40 @@ public:
 	 Node<T>* phead;
 	 int count;
  };
- /*¹¹Ôìº¯Êı*/
+ /*æ„é€ å‡½æ•°*/
  template <typename T>
  LinkStack<T>::LinkStack()
  {
 	 phead = new Node<T>();
 	 count = 0;
  };
- /*Îö¹¹º¯Êı*/
+ /*ææ„å‡½æ•°*/
  template <typename T>
  LinkStack<T>::~LinkStack()
  {
 	 while (phead->next != nullptr)
 	 {
 		 Node<T>*pnode = phead->next;
-		 phead->next = phead->next;
+		 phead->next = phead->next->next;
 		 delete pnode;
 	 }
+	 delete phead;
 	 phead = nullptr;
  };
 
- /*·µ»ØÕ»µÄ´óĞ¡*/
+ /*è¿”å›æ ˆçš„å¤§å°*/
  template <typename T>
  int LinkStack<T>::size()
  {
 	 return count;
  };
- /*Õ»µÄÅĞ¿Õ²Ù×÷*/
+ /*æ ˆçš„åˆ¤ç©ºæ“ä½œ*/
  template <typename T>
  bool LinkStack<T>::isEmpty()
  {
 	 return count == 0;
  };
- /*²åÈëÔªËØ*/
+ /*æ’å…¥å…ƒç´ */
  template<typename T>
  void LinkStack<T>::push(T t)
  {
@@ -79,11 +80,11 @@ public:
 	 phead->next = pnode;
 	 count++;
  };
- /*µ¯Õ»*/
+ /*å¼¹æ ˆ*/
  template <typename T>
  T LinkStack<T>::pop()
  {
-	 if (phead->next != nullptr) //Õ»¿ÕÅĞ¶Ï
+	 if (phead->next != nullptr) //æ ˆç©ºåˆ¤æ–­
 	 {
 		 Node<T>* pdel = phead->next;
 		 phead->next = phead->next->next;
@@ -93,7 +94,7 @@ public:
 		 return value;
 	 }
  };
- /*»ñÈ¡Õ»¶¥ÔªËØ*/
+ /*è·å–æ ˆé¡¶å…ƒç´ */
 template <typename T>
 T LinkStack<T>::top()
 {
