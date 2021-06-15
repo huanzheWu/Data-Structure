@@ -321,12 +321,14 @@ AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
 			else
 			{
 				AVLTreeNode<T> * ptemp = pnode;
-				if (pnode->lchild != nullptr)
-					pnode = pnode->lchild;
-				else if (pnode->rchild != nullptr)
-					pnode = pnode->rchild;
+                if (pnode->lchild != nullptr)
+                    pnode = pnode->lchild;
+                else if (pnode->rchild != nullptr)
+                    pnode = pnode->rchild;
+                else
+                    pnode = nullptr;
 				delete ptemp;
-				return nullptr;
+				return pnode;
 			}
 		
 		}
