@@ -25,6 +25,8 @@ public:
 	AVLTree();			//构造函数
 	~AVLTree();			//析构函数
 
+    void show(); // tree print
+
 	void preOrder();	//前序遍历AVL树
 	void InOrder();		//中序遍历AVL树	
 	void postOrder();	//后序遍历AVL树
@@ -46,6 +48,8 @@ private:
 	AVLTreeNode<T>* root;	//AVL树的根节点
 
 private:
+    void show(AVLTreeNode<T>* pnode, size_t indent) const; // tree print
+
 	void preOrder(AVLTreeNode<T>* pnode) const;
 	void inOrder(AVLTreeNode<T>* pnode) const;
 	void postOrder(AVLTreeNode<T>* pnode) const;
@@ -328,7 +332,8 @@ AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
 		}
 		else if (key > pnode->key)		//要删除的节点比当前节点大，则在右子树进行删除
 		{
-			pnode->rchild =  remove(pnode->rchild, key);
+			pnode->rchild = remove(pnode->rchild, key);
+
 			if (height(pnode->lchild) - height(pnode->rchild) == 2) //删除右子树节点导致不平衡:相当于情况二或情况四
 			{
 				if (height(pnode->lchild->rchild)>height(pnode->lchild->lchild))
@@ -339,7 +344,8 @@ AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
 		}
 		else if (key < pnode->key)		//要删除的节点比当前节点小，则在左子树进行删除
 		{
-			pnode->lchild= remove(pnode->lchild, key);
+			pnode->lchild = remove(pnode->lchild, key);
+
 			if (height(pnode->rchild) - height(pnode->lchild) == 2)  //删除左子树节点导致不平衡：相当于情况三或情况一
 			{
 				if (height(pnode->rchild->lchild)>height(pnode->rchild->rchild))
@@ -357,6 +363,29 @@ void AVLTree<T>::remove(T key)
 {
 	root =remove(root, key);
 };
+
+
+template<typename T>
+void AVLTree<T>::show()
+{
+    show(root, 0);
+}
+
+
+template<typename T>
+void AVLTree<T>::show(AVLTreeNode<T>* pnode, size_t indent) const
+{
+    if (pnode->rchild != nullptr)
+        show(pnode->rchild, indent + 1);
+    for (size_t i = 0; i < indent; ++i)
+        cout << '\t';
+
+    cout << pnode->key << endl;
+
+    if (pnode->lchild != nullptr)
+        show(pnode->lchild, indent + 1);
+}
+
 /*中序遍历*/
 template<typename T>
 void AVLTree<T>::inOrder(AVLTreeNode<T>* pnode) const
@@ -382,8 +411,8 @@ void AVLTree<T>::preOrder(AVLTreeNode<T>* pnode) const
 	if (pnode != nullptr)
 	{
 		cout << pnode->key << endl;
-		inOrder(pnode->lchild);
-		inOrder(pnode->rchild);
+        preOrder(pnode->lchild);
+        preOrder(pnode->rchild);
 	}
 };
 template<typename T>
@@ -398,8 +427,8 @@ void AVLTree<T>::postOrder(AVLTreeNode<T>* pnode) const
 {
 	if (pnode != nullptr)
 	{
-		inOrder(pnode->lchild);
-		inOrder(pnode->rchild);
+        postOrder(pnode->lchild);
+        postOrder(pnode->rchild);
 		cout << pnode->key << endl;
 	}
 }
