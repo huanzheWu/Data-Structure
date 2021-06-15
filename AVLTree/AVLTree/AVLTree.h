@@ -317,6 +317,8 @@ AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
 					pnode->rchild = remove(pnode->rchild, psuc->key);	//递归地删除最小节点
 				}
 
+                pnode->height = max(height(pnode->lchild), height(pnode->rchild)) + 1;
+
 			}
 			else
 			{
@@ -328,6 +330,9 @@ AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
                 else
                     pnode = nullptr;
 				delete ptemp;
+
+                if (pnode != nullptr)
+                    pnode->height = 1;
 				return pnode;
 			}
 		
@@ -343,6 +348,8 @@ AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
 				else
 					pnode = rightRotation(pnode);					//相当于情况二
 			}
+
+            pnode->height = max(height(pnode->lchild), height(pnode->rchild)) + 1;
 		}
 		else if (key < pnode->key)		//要删除的节点比当前节点小，则在左子树进行删除
 		{
@@ -355,6 +362,8 @@ AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
 				else
 					pnode = leftRotation(pnode);
 			}
+
+            pnode->height = max(height(pnode->lchild), height(pnode->rchild)) + 1;
 		}
 		return pnode;
 	}
