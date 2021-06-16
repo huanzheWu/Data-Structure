@@ -11,7 +11,14 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	AVLTree<int> a;
 
-    vector<int> val{ 13, 8, 21, 3, 10, 17, 25, 2, 6, 9, 12, 15, 19, 23, 27, 1, 5, 7, 11, 14, 16, 18, 20, 22, 24, 26, 28, 4 };
+    vector<int> val{ 10, 9, 11, 12 };
+    //{ 13, 8, 21, 3, 10, 16, 29, 1, 6, 9, 11, 14, 19, 26, 31, 2, 4, 7, 12, 15, 17, 20, 24, 28, 30, 33, 5, 18, 23, 25, 27, 32, 22 };
+    //{ 8, 3, 10, 1, 6, 9, 11, 2, 4, 7, 12, 5 };
+    //{ 10, 9, 11, 12 };
+    
+    
+    // other
+    //{ 13, 8, 21, 3, 10, 17, 25, 2, 6, 9, 12, 15, 19, 23, 27, 1, 5, 7, 11, 14, 16, 18, 20, 22, 24, 26, 28, 4 };
 
 	for (size_t i = 0; i < val.size(); i++)
 		a.insert(val[i]);
@@ -27,22 +34,27 @@ int _tmain(int argc, _TCHAR* argv[])
 	
     cout << endl;
 
-    a.show();
-
-	//cout << "删除元素9"<<endl;
-	//a.remove(9);
-    cout << "删除元素12" << endl;
-    a.remove(12);
+    a.show_build();
     cout << endl;
 
     a.show();
 
-	AVLTreeNode<int>* b = a.search_iterator(10);
+	cout << "删除元素9"<<endl;
+	a.remove(9);
+    //cout << "删除元素12" << endl;
+    //a.remove(12);
+    cout << endl;
 
-	if (b != nullptr)
-		cout << b->key << endl;
-	else
-		cout << "无此元素" << endl;
+    a.show();
+
+    
+
+	//AVLTreeNode<int>* b = a.search_iterator(10);
+
+	//if (b != nullptr)
+	//	cout << b->key << endl;
+	//else
+	//	cout << "无此元素" << endl;
 
 	//system("pause");
 

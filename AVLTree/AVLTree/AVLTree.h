@@ -6,6 +6,9 @@
 */
 #ifndef _AVL_TREE_HPP_
 #define _AVL_TREE_HPP_
+
+#include <queue>
+
 template <typename T>
 struct AVLTreeNode
 {
@@ -26,6 +29,7 @@ public:
 	~AVLTree();			//析构函数
 
     void show(); // tree print
+    void show_build(); // tree print
 
 	void preOrder();	//前序遍历AVL树
 	void InOrder();		//中序遍历AVL树	
@@ -380,6 +384,31 @@ template<typename T>
 void AVLTree<T>::show()
 {
     show(root, 0);
+}
+
+
+template<typename T>
+void AVLTree<T>::show_build()
+{
+    std::queue<AVLTreeNode<T>*> q;
+
+    if (root == nullptr)
+        return;
+
+    q.push(root);
+
+    while (!q.empty())
+    {
+        auto v = q.front();
+        q.pop();
+        std::cout << v->key << ", ";
+
+        if (v->lchild != nullptr)
+            q.push(v->lchild);
+        if (v->rchild != nullptr)
+            q.push(v->rchild);
+    }
+
 }
 
 
